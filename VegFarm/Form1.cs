@@ -14,6 +14,7 @@ namespace VegFarm
     {
         Dictionary<CheckBox, Cell> field = new Dictionary<CheckBox, Cell>();
         Money money = new Money();
+        int timeSec = 0, timeMin = 0;
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace VegFarm
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            UpdateTime();
             foreach (CheckBox cb in tableLayoutPanel1.Controls)
             {
                 if(field[cb].GetState() != CellState.Empty)
@@ -53,6 +55,22 @@ namespace VegFarm
             }
             UpdateBox(cb);
             UpdateMoney();
+        }
+        
+        private void UpdateTime()
+        {
+            timeSec++;
+            if (timeSec >= 60)
+            {
+                timeSec = 0;
+                timeMin++;
+            }
+            secondsLabel.Text = timeSec.ToString();
+            if(timeMin >= 60)
+            {
+                timeMin = 0;
+            }
+            minutes2Label.Text = timeMin.ToString();
         }
 
         private void UpdateMoney()
